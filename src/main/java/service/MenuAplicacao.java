@@ -7,7 +7,8 @@ public class MenuAplicacao {
 
     private TransacaoTipo transacaoTipo;
 
-    public static final String MENSAGEM_INICIAL = "OPÇÕES DO MENU: \n"+
+    public static final String MENSAGEM_INICIAL = "-------------------------------\n" +
+            "OPÇÕES DO MENU: \n"+
             "1- Extrato de movimentações\n" +
             "2- Gastos por categoria\n" +
             "3- Categoria com maior gasto\n" +
@@ -94,9 +95,8 @@ public class MenuAplicacao {
             System.out.println(MENSAGEM_OPCAO_ERRADA);
             System.out.println(MENSAGEM_INICIAL);
             System.out.println(MENSAGEM_ESCOLHA);
-            capturaEscolha();
+            return 0;
         }
-        return 0;
     }
 
 }
