@@ -29,7 +29,10 @@ public class BuscaMovimentacaoViaAPI {
 
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-            return objectMapper.readValue(stringBuilder.toString(), TransacaoTipo.class);
+            TransacaoTipo transacaoTipo = objectMapper.readValue(stringBuilder.toString(), TransacaoTipo.class);
+            transacaoTipo.getRecebimentos().forEach(transacao -> transacao.setCategoria("naoInformada"));
+
+            return transacaoTipo;
 
         } catch (IOException e) {
             System.out.println("Não foi possível consumir a API!");

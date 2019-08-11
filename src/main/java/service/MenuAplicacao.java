@@ -7,7 +7,8 @@ public class MenuAplicacao {
 
     private TransacaoTipo transacaoTipo;
 
-    public static final String MENSAGEM_INICIAL = "1- Extrato de movimentações\n" +
+    public static final String MENSAGEM_INICIAL = "OPÇÕES DO MENU: \n"+
+            "1- Extrato de movimentações\n" +
             "2- Gastos por categoria\n" +
             "3- Categoria com maior gasto\n" +
             "4- Mês com maior gasto\n" +
@@ -18,15 +19,18 @@ public class MenuAplicacao {
 
     public static final String MENSAGEM_ESCOLHA = "Escolha a opção desejada:";
     public static final String MENSAGEM_DESPEDIDA = "Você escolheu a opção de saída, obrigado e volte sempre!";
-    public static final String MENSAGEM_OPCAO_ERRADA = "A opção escolhida não existe!\n";
+    public static final String MENSAGEM_OPCAO_ERRADA = "A opção escolhida não está disponível!\n";
+    public static final String MENSAGEM_BUSCANDO_API = "Buscando dados pela API!";
+    public static final String MENSAGEM_BUSCANDO_ARQUIVO_LOG = "Buscando dados pelo arquivo log";
+    public static final String MENSAGEM_SUCESSO = "Dados buscados com sucesso!\n";
 
     public void iniciaAplicacao(){
-        System.out.println("Buscando dados pela API");
+        System.out.println(MENSAGEM_BUSCANDO_API);
         this.transacaoTipo = BuscaMovimentacaoViaAPI.buscaViaAPI();
 
-        System.out.println("Buscando dados pelo arquivo log\n");
+        System.out.println(MENSAGEM_BUSCANDO_ARQUIVO_LOG);
         BuscaMovimentacaoViaArquivoLog.buscaViaLog(transacaoTipo);
-        System.out.println("Dados buscados com sucesso!");
+        System.out.println(MENSAGEM_SUCESSO);
 
         escolhaOpcao();
     }
@@ -38,27 +42,31 @@ public class MenuAplicacao {
         if (valorEscolhido > 0 && valorEscolhido <= 9) {
                 switch (valorEscolhido) {
                     case 1:
+                        new CalculaOpcaoMenu().buscaOpcao1(this.transacaoTipo);
                         break;
 
                     case 2:
+                        new CalculaOpcaoMenu().buscaOpcao2(this.transacaoTipo);
                         break;
 
                     case 3:
+                        new CalculaOpcaoMenu().buscaOpcao3(this.transacaoTipo);
                         break;
 
                     case 4:
+                        new CalculaOpcaoMenu().buscaOpcao4(this.transacaoTipo);
                         break;
 
                     case 5:
+                        new CalculaOpcaoMenu().buscaOpcao5(this.transacaoTipo);
                         break;
 
                     case 6:
+                        new CalculaOpcaoMenu().buscaOpcao6(this.transacaoTipo);
                         break;
 
                     case 7:
-                        break;
-
-                    case 8:
+                        new CalculaOpcaoMenu().buscaOpcao7(this.transacaoTipo);
                         break;
 
                     case 9:
@@ -66,6 +74,7 @@ public class MenuAplicacao {
                         return;
 
                     default:
+                        System.out.println(MENSAGEM_OPCAO_ERRADA);
                         break;
 
                 }
@@ -83,6 +92,8 @@ public class MenuAplicacao {
             return Integer.parseInt(comandoUsuario);
         } catch (NumberFormatException ex) {
             System.out.println(MENSAGEM_OPCAO_ERRADA);
+            System.out.println(MENSAGEM_INICIAL);
+            System.out.println(MENSAGEM_ESCOLHA);
             capturaEscolha();
         }
         return 0;

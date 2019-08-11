@@ -21,15 +21,13 @@ public class BuscaMovimentacaoViaArquivoLog {
             while ((linhaMovimentacao = bufferedReader.readLine())!=null) {
                 if (i!=0) {
                     String[] transacaoDetalhe = linhaMovimentacao.split("\\s{2,}+");
-                    NumberFormat numberFormat = NumberFormat.getInstance(new Locale("pt", "BR"));
-                    Number number = numberFormat.parse(transacaoDetalhe[2]);
-                    BigDecimal valor = new BigDecimal(number.toString());
+                    BigDecimal valor = Transacao.converteValorToString(transacaoDetalhe[2]);
 
                     if (valor.longValue() > 0) {
-                        Transacao transacao = Transacao.buildPagamento(transacaoDetalhe[0], transacaoDetalhe[1], "R$", valor, transacaoDetalhe.length!=4 ? "NãoInformada":transacaoDetalhe[3]);
+                        Transacao transacao = Transacao.buildTransacao(transacaoDetalhe[0], transacaoDetalhe[1], "R$", valor, transacaoDetalhe.length!=4 ? "NãoInformada":transacaoDetalhe[3]);
                         transacaoTipo.getRecebimentos().add(transacao);
                     } else {
-                        Transacao transacao = Transacao.buildPagamento(transacaoDetalhe[0], transacaoDetalhe[1], "R$", valor, transacaoDetalhe.length!=4 ? "NãoInformada":transacaoDetalhe[3]);
+                        Transacao transacao = Transacao.buildTransacao(transacaoDetalhe[0], transacaoDetalhe[1], "R$", valor, transacaoDetalhe.length!=4 ? "NãoInformada":transacaoDetalhe[3]);
                         transacaoTipo.getPagamentos().add(transacao);
                     }
                 } else {
@@ -43,10 +41,6 @@ public class BuscaMovimentacaoViaArquivoLog {
             return null;
         } catch (IOException e) {
             System.out.println("Não foi possível ler o arquivo!");
-            return null;
-        } catch (ParseException e) {
-            System.out.println("Erro no valor!");
-            e.printStackTrace();
             return null;
         }
     }
