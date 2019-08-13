@@ -7,6 +7,8 @@ public class MenuAplicacao {
 
     private TransacaoTipo transacaoTipo;
 
+    private static final String URL_DA_API = "https://my-json-server.typicode.com/cairano/backend-test/db";
+
     public static final String MENSAGEM_INICIAL = "-------------------------------\n" +
             "OPÇÕES DO MENU: \n"+
             "1- Extrato de movimentações\n" +
@@ -27,7 +29,7 @@ public class MenuAplicacao {
 
     public void iniciaAplicacao(){
         System.out.println(MENSAGEM_BUSCANDO_API);
-        this.transacaoTipo = BuscaMovimentacaoViaAPI.buscaViaAPI();
+        this.transacaoTipo = BuscaMovimentacaoViaAPI.buscaViaAPI(URL_DA_API);
 
         System.out.println(MENSAGEM_BUSCANDO_ARQUIVO_LOG);
         BuscaMovimentacaoViaArquivoLog.buscaViaLog(transacaoTipo);

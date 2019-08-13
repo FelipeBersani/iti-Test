@@ -118,7 +118,7 @@ public class Transacao {
                 .toFormatter().withLocale(locale));
     }
 
-    protected String retornaCategoriaPadronizada(String categoria){
+    public String retornaCategoriaPadronizada(String categoria){
         if(isNullOrEmpty(categoria)){
             return NAO_INFORMADA;
         }else{
@@ -128,14 +128,14 @@ public class Transacao {
         }
     }
 
-    public static BigDecimal converteValorToString(String valorString){
+    public BigDecimal converteValorToString(String valorString){
         BigDecimal valor = BigDecimal.ZERO;
         try {
             NumberFormat numberFormat = NumberFormat.getInstance(new Locale("pt", "BR"));
             Number number = numberFormat.parse(valorString);
             valor = new BigDecimal(number.toString());
         } catch (ParseException e) {
-            e.printStackTrace();
+            System.out.println("Erro ao converter valor!"+ e.getMessage());
         }
         return valor;
     }

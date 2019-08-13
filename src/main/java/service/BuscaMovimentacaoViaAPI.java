@@ -12,12 +12,11 @@ import java.net.URL;
 
 public class BuscaMovimentacaoViaAPI {
 
-    private static final String URL_DA_API = "https://my-json-server.typicode.com/cairano/backend-test/db";
 
-    public static TransacaoTipo buscaViaAPI(){
+    public static TransacaoTipo buscaViaAPI(String url){
 
         try {
-            URL urlRequest = new URL(URL_DA_API);
+            URL urlRequest = new URL(url);
             InputStream reader = urlRequest.openStream();
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(reader));
             StringBuilder stringBuilder = new StringBuilder();
